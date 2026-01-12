@@ -1,0 +1,42 @@
+<%- include('../partials/header.ejs' , {pageName : "REGISTER" , CustomCss : "register.css"}) %>
+
+    <div class="bg-image"></div>
+    <div class="logo">CINEVERSE</div>
+
+    <div class="auth-card">
+        <div class="header">
+            <h1>Join The Verse</h1>
+            <p>Begin your cinematic journey.</p>
+        </div>
+        <form id="regForm" method="post" action="/userRegister">
+            <div class="input-group">
+                <input type="text" name="userName" id="username" placeholder="Username" required>
+                <i class="fas fa-user"></i>
+            </div>
+
+            <div class="input-group">
+                <input type="email" name="email" id="email" placeholder="Email Address" required>
+                <i class="fas fa-envelope"></i>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <i class="fas fa-lock"></i>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
+                <i class="fas fa-check-circle"></i>
+            </div>
+
+            <p class="error-msg" id="errorText">Passwords do not match!</p>
+
+            <button type="submit" class="submit-btn">Initialize Account</button>
+        </form>
+
+        <p class="footer-text">
+            Already an Agent? <a href="/login">Login Here</a>
+        </p>
+    </div>
+
+    <%- include("../partials/footer.ejs" , {customJs : "register.js"})%>

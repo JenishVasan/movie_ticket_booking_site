@@ -1,0 +1,60 @@
+.global-footer {
+  background: #050505;
+  border-top: 1px solid #222;
+  padding: 4rem;
+  font-family: "Syne";
+  margin-top: auto;
+}
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer-brand h2 {
+  font-family: "Oswald";
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.footer-brand p {
+  color: #666;
+  font-size: 0.9rem;
+}
+.footer-links h4 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.footer-links ul {
+  list-style: none;
+}
+.footer-links a {
+  color: #888;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.footer-links a:hover {
+  color: #fff;
+}
+.footer-social {
+  display: flex;
+  gap: 1rem;
+}
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+}
+.footer-bottom {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid #111;
+  color: #444;
+  font-size: 0.8rem;
+}

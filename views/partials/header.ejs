@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageName %></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Syne:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/public/css/header.css">
+    <link rel="stylesheet" href="/public/css/footer.css">
+    <link rel="stylesheet" href="/public/css/<%=CustomCss%>">
+</head>
+
+<body>
+
+<header>
+    <nav class="global-nav">
+        <a href="index.html" class="nav-logo">CINEVERSE</a>
+        <div class="nav-right">
+            <a href="login.html" class="auth-link">Login</a>
+            <div class="menu-trigger" onclick="toggleMenu()">Menu</div>
+        </div>
+    </nav>
+</header>
+
+<div class="menu-overlay" id="menuOverlay">
+    <div class="menu-links">
+        <a href="index.html" class="menu-link">Home</a>
+        <a href="index.html#trending" class="menu-link">Movies</a>
+        <a href="#" class="menu-link">Cinemas</a>
+        <a href="#" class="menu-link">Profile</a>
+    </div>
+</div>

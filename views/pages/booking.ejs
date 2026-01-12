@@ -1,0 +1,68 @@
+<%- include('../partials/header.ejs' , {pageName : "BOOKING" , CustomCss : "booking.css" }) %>
+    <form id="mainBookingForm" action="/api/booking" method="POST">
+
+        <input type="hidden" name="movie_id" value="<%= movie._id %>">
+        <input type="hidden" name="selected_seats" id="hiddenSeatsInput">
+        <input type="hidden" name="total_price" id="hiddenPriceInput">
+        <input type="hidden" name="show_id" id="hiddenShowInput">
+
+        <div class="form-container" id="phase1">
+            <div class="booking-card">
+                <img src="<%= movie.poster %>" class="poster-preview">
+                <div class="form-fields">
+                    <h2 style="color:white; margin-bottom: 20px;">
+                        <%= movie.title %>
+                    </h2>
+                    <div class="form-group">
+                        <label>Select Theater</label>
+                        <select name="theater_id" id="theaterSelect" onchange="handleTheaterChange()" required>
+                            <option value="" disabled selected>Choose a Location...</option>
+                            <% const seenTheaters=new Set(); show.forEach(e=> {
+                                if (!seenTheaters.has(e.screenId.theatreId._id.toString())) {
+                                seenTheaters.add(e.screenId.theatreId._id.toString());
+                                %>
+                                <option value="<%= e.screenId.theatreId._id %>">
+                                    <%= e.screenId.theatreId.name %>
+                                </option>
+                                <% } }) %>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Date</label>
+                        <select name="date" id="dateSelect" onchange="handleDateChange()" required>
+                            <option value="" disabled selected>Choose Date...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Showtime</label>
+                        <select name="showtime" id="timeSelect" onchange="handleTimeChange()" required>
+                            <option value="" disabled selected>Choose Time...</option>
+                        </select>
+                    </div>
+                    <button type="button" class="next-btn" onclick="goToSeats()">Select Seats</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="theater-container" id="phase2">
+            <div class="cinema-hall" id="hall">
+                <div class="screen-container">
+                    <div class="screen-glow"></div>
+                    <div class="screen"></div>
+                </div>
+                <div class="seats-grid" id="seatsGrid"></div>
+            </div>
+        </div>
+
+        <div class="booking-bar" id="bookingBar">
+            <div class="selected-info">
+                <div style="font-size:0.8rem; color:#888">TOTAL</div>
+                <div style="color:var(--accent-color); font-size:1.5rem" id="priceDisplay">$0.00</div>
+            </div>
+            <button type="submit" class="pay-btn">Confirm & Pay</button>
+        </div>
+    </form>
+
+    <%- include("../partials/footer.ejs" , {customJs : "booking.js" })%>

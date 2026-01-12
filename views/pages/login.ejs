@@ -1,0 +1,27 @@
+<%- include('../partials/header.ejs' , {pageName : "LOGIN" , CustomCss : "login.css"}) %>
+    <div class="bg-image"></div>
+    <!-- <div class="logo" onclick="window.location.href='index.html'">CINEVERSE</div> -->
+
+    <div class="auth-card">
+        <div class="header">
+            <h1>Access Portal</h1>
+            <p>Welcome back, Agent.</p>
+        </div>
+
+        <form method="post" action="/userLogin" >
+            <div class="input-group">
+                <input type="email" name="email" placeholder="email" required>
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            <button type="submit" class="submit-btn">Enter System</button>
+        </form>
+        <p class="footer-text">
+            New here? <a href="/register">Create Identity</a>
+        </p>
+    </div>
+    
+    <%- include("../partials/footer.ejs" , {customJs : "login.js"})%>

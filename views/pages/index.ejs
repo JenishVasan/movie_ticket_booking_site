@@ -1,0 +1,135 @@
+<%- include('../partials/header.ejs' , {pageName : "CINEVERSE | Immersive Booking" , CustomCss : "index.css" }) %>
+    <div class="loader">
+        <div class="loader-text">CINEVERSE</div>
+    </div>
+
+    <section class="hero">
+        <div class="bg-gradient"></div>
+        <h1 class="hero-title">Premiering Now</h1>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <% if (typeof movies !=='undefined' && movies.length> 0) { %>
+                    <% movies.forEach(movie=> { %>
+                        <div class="swiper-slide">
+                            <div class="slide-inner">
+                                <img src="<%= movie.poster || 'https://via.placeholder.com/800x400?text=No+Image' %>"
+                                    class="movie-img">
+                                <div class="movie-info">
+                                    <div class="movie-meta">
+                                        <%= movie.genre.join(', ') %> • <%= movie.durationH %>h <%= movie.durationM %>m</div>
+                                    <h2 class="movie-title"><%= movie.title %></h2>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <div class="swiper-slide">
+                        <div class="slide-inner">
+                            <div class="movie-info">
+                                <h2 class="movie-title">No Movies Available</h2>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <!-- swiper-button-next and prev if needed -->
+        </div>
+    </section>
+
+    <section class="marquee-section">
+        <div class="marquee-content">
+            <span class="marquee-item">IMAX Experience</span>
+            <span class="marquee-item filled">Dolby Atmos</span>
+            <span class="marquee-item">4DX Cinema</span>
+            <span class="marquee-item filled">Laser Projection</span>
+            <span class="marquee-item">Luxury Seating</span>
+            <span class="marquee-item">IMAX Experience</span>
+            <span class="marquee-item filled">Dolby Atmos</span>
+        </div>
+    </section>
+
+    <section class="grid-section" id="grid-section">
+        <h2 class="section-header" data-reveal>Trending Now</h2>
+
+        <div class="cards-container">
+            <% if (typeof movies !== ' undefined' && movies.length> 0) { %>
+                                            <% movies.forEach(movie=> { %>
+                                                <div class="card" data-card>
+                                                    <div class="card-img-box">
+                                                        <img src="<%= movie.poster || 'https://via.placeholder.com/300x450?text=No+Image' %>"
+                                                            class="card-img">
+                                                        <div class="rating-badge"><i class="fas fa-star"></i>
+                                                            <%= movie.rating %>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <h3 class="card-title">
+                                                            <%= movie.title %>
+                                                        </h3>
+                                                        <div class="card-details"><span>
+                                                                <%= movie.genre[0] %>
+                                                            </span><span>•</span><span>
+                                                                <%= movie.durationH %>h <%= movie.durationM %>m
+                                                            </span></div>
+                                                        <button class="card-btn"><a
+                                                                href="/booking/<%= movie._id %>"> Book Ticket
+                                                            </a></button>
+                                                    </div>
+                                                </div>
+                                                <% }) %>
+                                                    <% } else { %>
+                                                        <div class="card">
+                                                            <div class="card-content">
+                                                                <h3>No Trending Movies</h3>
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
+                                    </div>
+    </section>
+
+    <section class="coming-soon">
+        <h2 class="section-header" data-reveal>Coming Soon</h2>
+        <div class="movie-row">
+            <div class="row-text">
+                <span class="release-badge">NOV 24</span>
+                <h3 class="row-title" data-reveal>INTERSTELLAR REDUX</h3>
+                <p class="row-desc" data-reveal>A team of explorers travel through a wormhole in space in an attempt to
+                    ensure humanity' s survival.</p>
+                <div class="cta-btn"
+                    style="border-bottom: 1px solid #fff; display:inline-block; background:none; padding:10px 0;">
+                    Watch
+                    Trailer</div>
+            </div>
+            <div class="row-img-container">
+                <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2072&auto=format&fit=crop"
+                    class="row-img" data-speed="0.8">
+            </div>
+        </div>
+        <div class="movie-row">
+            <div class="row-text">
+                <span class="release-badge">DEC 12</span>
+                <h3 class="row-title" data-reveal>NEON GENESIS</h3>
+                <p class="row-desc" data-reveal>In a post-apocalyptic Tokyo, giant bio-machines
+                    controlled by teenagers
+                    fight against unknown entities.</p>
+                <div class="cta-btn"
+                    style="border-bottom: 1px solid #fff; display:inline-block; background:none; padding:10px 0;">
+                    Watch
+                    Trailer</div>
+            </div>
+            <div class="row-img-container">
+                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    class="row-img" data-speed="0.8">
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-overlay"></div>
+        <div class="cta-content">
+            <h2 class="cta-big-text" data-reveal>Feel The<br>Reality</h2>
+            <button class="cta-btn"><a href="#grid-section">Book Experience</a></button>
+        </div>
+    </section>
+
+    <%- include("../partials/footer.ejs" , {customJs : "index.js" })%>

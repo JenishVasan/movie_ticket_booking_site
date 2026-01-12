@@ -1,0 +1,16 @@
+<%- include('../partials/header.ejs' , {pageName : "Booking Confirmed" , CustomCss : "booking.css" }) %>
+
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh; text-align: center; color: white;">
+        <div style="font-size: 4rem; color: #4ade80; margin-bottom: 20px;">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Booking Confirmed!</h1>
+        <p style="font-size: 1.1rem; color: #ccc; margin-bottom: 30px;">Your tickets have been successfully booked.</p>
+
+        <a href="/"
+            style="background-color: var(--accent-color); color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem;">Back
+            to Home</a>
+    </div>
+
+    <%- include("../partials/footer.ejs" , {customJs : "" })%>
