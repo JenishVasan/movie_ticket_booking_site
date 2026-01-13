@@ -1,5 +1,5 @@
 
-const { login, register, userRegister, userLogin } = require('../controller/authController')
+const { login, register, userRegister, userLogin , logOut} = require('../controller/authController')
 const { home, booking, getShows, storeBooking, bookingSuccess } = require('../controller/userController')
 const {
     adminPage, addMovie, addCinema, addScreen, addShow,
@@ -9,6 +9,8 @@ const {
     getScreen, updateScreen,
     getShow, updateShow
 } = require('../controller/adminController')
+
+
 const authMiddleware = require('../middleware/authMiddleware')
 const checkLogin = require('../middleware/loginCheck')
 const express = require('express')
@@ -17,29 +19,30 @@ const router = express.Router()
 router.get('/', authMiddleware, home)
 router.get('/login', checkLogin, login)
 router.post('/userLogin', userLogin)
+// register
 router.get('/register', checkLogin, register)
 router.post('/userRegister', userRegister)
-
+// logout 
+router.get("/logout" , checkLogin , logOut)
 router.get('/booking/:movieId', authMiddleware, booking)
 router.post('/api/booking', authMiddleware, storeBooking)
 router.get('/booking-success', authMiddleware, bookingSuccess)
 
 router.get('/getShows/:movieId', getShows)
 
-// Admin Routes
+ 
 router.get('/admin', adminPage)
 router.post('/addMovie', addMovie)
 router.post('/addCinema', addCinema)
 router.post('/addScreen', addScreen)
 router.post('/addShow', addShow)
-
-// Delete Routes
+ 
 router.delete('/deleteMovie/:id', deleteMovie)
 router.delete('/deleteCinema/:id', deleteCinema)
 router.delete('/deleteScreen/:id', deleteScreen)
 router.delete('/deleteShow/:id', deleteShow)
 
-// Update Routes (Get Single & Post Update)
+ 
 router.get('/getMovie/:id', getMovie)
 router.post('/updateMovie/:id', updateMovie)
 

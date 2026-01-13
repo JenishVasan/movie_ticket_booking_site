@@ -60,7 +60,7 @@ const welcomeMail = async  (userEmail , username )=>{
                     </body>
                     </html>`,
                     };
-
+                    
         console.log('utils :sending welcome mail to user from ')
         await mailSender.sendMail(message)
         console.log("email send success")

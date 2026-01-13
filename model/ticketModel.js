@@ -6,7 +6,7 @@ const ticketSchema = new mongoose.Schema(
 
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "user",
       required: true,
       index: true
     },
@@ -25,9 +25,9 @@ const ticketSchema = new mongoose.Schema(
 
     seats: [
       {
-        seatNumber: { type: String, required: true }, // A1, B4
-        row: { type: String }, // optional
-        price: { type: Number, required: true } // snapshot price
+        seatNumber: { type: String, required: true }, 
+        row: { type: String },  
+        price: { type: Number, required: true }  
       }
     ],
 

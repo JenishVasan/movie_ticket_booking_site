@@ -1,6 +1,7 @@
 const Movie = require('../model/moviewmodel');
 const Show = require('../model/showModel');
 const Ticket = require('../model/ticketModel');
+const ticketMail = require("../utils/ticketMailSender")
 const home = async (req, res) => {
     try {
         const movies = await Movie.find({});
@@ -40,10 +41,6 @@ const booking = async (req, res) => {
     }
 }
 
-
-
-
-
 const getShows = async (req, res) => {
     try {
         const movieId = req.params.movieId;
@@ -65,14 +62,12 @@ const getShows = async (req, res) => {
 const storeBooking = async (req, res) => {
     try {
         const { movie_id, show_id, selected_seats, total_price } = req.body;
-
-
+       
         const seatIds = selected_seats.split(',');
 
         if (!seatIds || seatIds.length === 0) {
             return res.status(400).send("No seats selected");
         }
-
 
         const showDoc = await Show.findById(show_id);
         if (!showDoc) return res.status(404).send("Show not found");
@@ -102,14 +97,63 @@ const storeBooking = async (req, res) => {
         });
 
         await newTicket.save();
-
-
         showDoc.bookedSeats.push(...seatIds);
+        
         await showDoc.save();
+        let ticket = await Ticket.findOne({_id :newTicket.id})
+        .populate({
+            path : "user" ,
+            select :"userName email"
+        })
+        .populate({
+            path : "movie",
+            select : "title"
+        }).populate({
+            path : "show",
+            select : "screenId startTime endTime",
+            populate :{
+                path : "screenId" ,
+                select : "name"
+            }
+        })
+        let totalPrice = 0;
+        ticket.seats.forEach(e=>{
+           totalPrice += e.price
+        }) 
 
+       let  ticketObj ={
+
+        userName : ticket.user.userName ,
+        userEmail : ticket.user.email ,
+        movieName : ticket.movie.title ,
+        screenName : ticket.show.screenId.name  ,
+        showDate : ticket. show.startTime.toLocaleDateString("en-IN", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    timeZone: "Asia/Kolkata"
+                }) ,
+        startTime : ticket.show.startTime.toLocaleTimeString("en-IN", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                    timeZone: "Asia/Kolkata"
+                }),
+        endTime : ticket.show.startTime.toLocaleTimeString("en-IN", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                    timeZone: "Asia/Kolkata"
+                }) ,
+        seatNo: ticket.seats.seatNumber,
+        totalPrice : totalPrice,
+        ticketId : ticket._id
+       }
+        console.log("ticket object : " , ticketObj)
         res.redirect('/booking-success');
+        ticketMail(ticketObj)
 
-    } catch (err) {
+    }catch (err) {
         console.error(err);
         res.status(500).send("Booking Failed");
     }
@@ -117,6 +161,6 @@ const storeBooking = async (req, res) => {
 
 const bookingSuccess = (req, res) => {
     res.render('pages/success');
-}
+} 
 
 module.exports = { home, booking, getShows, storeBooking, bookingSuccess }

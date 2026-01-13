@@ -53,35 +53,36 @@ const userLogin =async (req,res)=>{
             sameSite: "strict" ,
         })
     }
+
     const user = await User.findOne({email : req.body.email})
     // console.log('login : user :-' , user)
     // console.log('login : body :-' , req.body)
     
     if(!user){
-        console.log('login : user not found with this Email')
+        console.log('login : user not found with this Email redirecting to register page')
         return res.redirect("/register")
-        
     }
 
+   
     const rightPass = await  bcrypt.compare(req.body.password, user.password )
 
     if(!rightPass){
         console.log('password is wrong , try again')
-        setCookie()
         return res.redirect('/login')
     }
+    setCookie()
+    console.log(user.email , user.userName)
+    console.log("sending email ")
+    welcomMailSender(user.email , user.userName)
+    res.redirect('/')
+    
 
-    if(user.role === "admin"){
-        console.log("user login success")
-        res.redirect('/Admin')
-    }else if(user.role === "user"){
-        
-        console.log("sending mail to user from login")
-        welcomMailSender(user.email ,user.userName)
-        setCookie()
-        res.redirect('/')
-    }
-    // send mail to user
 }
 
-module.exports ={login , register , userRegister , userLogin}
+const logOut = (req,res)=>{
+    res.clearCookie("userId");
+    console.log("logout controller")
+    return res.redirect("/login")
+}
+
+module.exports ={login , register , userRegister , userLogin , logOut}

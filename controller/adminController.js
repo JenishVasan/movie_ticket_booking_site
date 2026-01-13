@@ -185,7 +185,7 @@ const deleteShow = async (req, res) => {
   }
 };
 
-// --- GET SINGLE (For Edit) ---
+
 const getMovie = async (req, res) => {
   try {
     const data = await Movie.findById(req.params.id);
@@ -220,8 +220,7 @@ const getShow = async (req, res) => {
     res.status(500).send(err);
   }
 };
-
-// --- UPDATE OPERATIONS ---
+ 
 const updateMovie = async (req, res) => {
   try {
     const {
