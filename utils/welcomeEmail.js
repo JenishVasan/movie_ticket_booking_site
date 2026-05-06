@@ -1,12 +1,12 @@
-const mailSender = require("../utils/mailSender") 
- 
-const welcomeMail = async  (userEmail , username )=>{
+const mailSender = require("../utils/mailSender")
+
+const welcomeMail = async (userEmail, username) => {
     var message = {
-            from: "hjenis451@gmail.com",
-            to: userEmail ,
-            subject: "Welcome to Cineverse! 🎬",
-            // text: "This is the plaintext version of the email.",
-            html:`<!DOCTYPE html>
+        from: "hjenis451@gmail.com",
+        to: userEmail,
+        subject: "Welcome to Cineverse! 🎬",
+        // text: "This is the plaintext version of the email.",
+        html: `<!DOCTYPE html>
                     <html>
                     <head>
                         <meta charset="UTF-8">
@@ -45,25 +45,25 @@ const welcomeMail = async  (userEmail , username )=>{
                                 </p>
 
                                 <div style="text-align: center;">
-                                    <a href="https://your-website-url.com" class="btn">Book Your First Ticket</a>
+                                    <a href="http://localhost:3000" class="btn">Book Your First Ticket</a>
                                 </div>
 
                                 <p style="margin-top: 30px;">See you at the movies!</p>
                             </div>
 
                             <div class="footer">
-                                <p>&copy; 2026 [App Name]. All rights reserved.</p>
+                                <p>&copy; 2026 Cineverse. All rights reserved.</p>
                                 <p>Address or Unsubscribe Link Here</p>
                             </div>
                         </div>
 
                     </body>
                     </html>`,
-                    };
-                    
-        console.log('utils :sending welcome mail to user from ')
-        await mailSender.sendMail(message)
-        console.log("email send success")
+    };
+
+    console.log('utils :sending welcome mail to user from ')
+    await mailSender.sendMail(message)
+    console.log("email send success")
 }
 
 module.exports = welcomeMail

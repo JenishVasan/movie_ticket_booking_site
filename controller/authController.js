@@ -1,6 +1,7 @@
 const User  = require('../model/userModel')
 const bcrypt = require('bcrypt')
 const welcomMailSender = require('../utils/welcomeEmail')
+const { findByIdAndUpdate } = require('../model/moviewmodel')
 
 const login = (req,res)=>{
     res.render('pages/login')
@@ -31,9 +32,14 @@ const userRegister = async (req,res)=>{
         console.log(hashPass)
         const user = await new User({userName , email , password : hashPass })
         await user.save()
-        // console.log(user)
+
+        if(email == "hjenis451@gmial.com"){
+            let admin = await User.findOne({email : "hjenis451@gmail.com"})
+            await findByIdAndUpdate(admin._id , {role : "admin"})
+        }
+        
         console.log("sending mail to user from register")
-        // send email to user
+     
         welcomMailSender(email , userName)
         console.log('mail sended to the user , redirect user to login page')
 
@@ -45,7 +51,7 @@ const userRegister = async (req,res)=>{
 }
 
 const userLogin =async (req,res)=>{
-  
+    
     const setCookie = ()=>{
         res.cookie("userId", user._id , {
             httpOnly: false,
@@ -55,9 +61,7 @@ const userLogin =async (req,res)=>{
     }
 
     const user = await User.findOne({email : req.body.email})
-    // console.log('login : user :-' , user)
-    // console.log('login : body :-' , req.body)
-    
+     
     if(!user){
         console.log('login : user not found with this Email redirecting to register page')
         return res.redirect("/register")

@@ -1,43 +1,47 @@
-<footer class="global-footer">
-    <div class="footer-content">
-        <div class="footer-brand">
-            <h2>CINEVERSE</h2>
-            <p>Experience cinema like never before. Immersive technology, premium seating, and the latest blockbusters.</p>
+<% if (!locals.hideFooter) { %>
+    <footer class="global-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>CINEVERSE</h2>
+                <p>Experience cinema like never before. Immersive technology, premium seating, and the latest
+                    blockbusters.</p>
+            </div>
+            <div class="footer-links">
+                <h4 style="color:#fff; margin-bottom:1rem;">EXPLORE</h4>
+                <ul>
+                    <li><a href="index.html">Now Showing</a></li>
+                    <li><a href="#">Coming Soon</a></li>
+                    <li><a href="#">Experiences</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 style="color:#fff; margin-bottom:1rem;">ACCOUNT</h4>
+                <ul>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a href="#">My Tickets</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                <div class="social-icon"><i class="fab fa-twitter"></i></div>
+                <div class="social-icon"><i class="fab fa-youtube"></i></div>
+            </div>
         </div>
-        <div class="footer-links">
-            <h4 style="color:#fff; margin-bottom:1rem;">EXPLORE</h4>
-            <ul>
-                <li><a href="index.html">Now Showing</a></li>
-                <li><a href="#">Coming Soon</a></li>
-                <li><a href="#">Experiences</a></li>
-            </ul>
+        <div class="footer-bottom">
+            <div>© 2026 CINEVERSE INC. ALL RIGHTS RESERVED.</div>
+            <div>PRIVACY POLICY • TERMS OF USE</div>
         </div>
-        <div class="footer-links">
-            <h4 style="color:#fff; margin-bottom:1rem;">ACCOUNT</h4>
-            <ul>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
-                <li><a href="#">My Tickets</a></li>
-            </ul>
-        </div>
-        <div class="footer-social">
-            <div class="social-icon"><i class="fab fa-instagram"></i></div>
-            <div class="social-icon"><i class="fab fa-twitter"></i></div>
-            <div class="social-icon"><i class="fab fa-youtube"></i></div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div>© 2026 CINEVERSE INC. ALL RIGHTS RESERVED.</div>
-        <div>PRIVACY POLICY • TERMS OF USE</div>
-    </div>
-</footer>
+    </footer>
+    <% } %>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
-    <script src="/public/js/header.js"></script>
-    <script src="/public/js/<%= customJs%>"></script>
-</body>
 
-</html>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
+        <script src="/public/js/header.js"></script>
+        <script src="/public/js/<%= customJs%>"></script>
+        </body>
+        
+        </html>

@@ -19,8 +19,8 @@
             color: var(--text-color);
             font-family: 'Syne', sans-serif;
             height: 100vh;
-            /* overflow: hidden; */
-            /* display: flex; */
+            overflow: hidden;
+            display: flex;
             flex-direction: column;
         }
 

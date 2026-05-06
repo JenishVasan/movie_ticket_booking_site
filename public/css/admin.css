@@ -61,6 +61,7 @@ body {
 .all-content{
   display: flex;
 }
+
 /* --- MAIN CONTENT --- */
 .main-content {
   flex-grow: 1;
@@ -114,6 +115,14 @@ body {
 }
 .form-group input:focus {
   border-color: var(--accent-color);
+}
+
+/* Make calendar icon visible on dark background */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
 }
 
 .btn {

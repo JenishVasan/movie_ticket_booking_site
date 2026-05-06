@@ -1,5 +1,5 @@
 <%- include('../partials/header.ejs' , {pageName : "BOOKING" , CustomCss : "booking.css" }) %>
-    <form id="mainBookingForm" action="/api/booking" method="POST">
+    <form id="mainBookingForm" action="/checkout" method="POST">
 
         <input type="hidden" name="movie_id" value="<%= movie._id %>">
         <input type="hidden" name="selected_seats" id="hiddenSeatsInput">
@@ -65,4 +65,4 @@
         </div>
     </form>
 
-    <%- include("../partials/footer.ejs" , {customJs : "booking.js" })%>
+    <%- include("../partials/footer.ejs" , {customJs : "booking.js" , hideFooter: true })%>

@@ -31,6 +31,18 @@ const ticketSchema = new mongoose.Schema(
       }
     ],
 
+    status: {
+      type: String,
+      enum: ['BOOKED', 'CANCELLED'],
+      default: 'BOOKED'
+    },
+
+    totalAmount: {
+      type: Number,
+      required: true,
+      default: 0
+    }
+
   },
   { timestamps: true }
 );

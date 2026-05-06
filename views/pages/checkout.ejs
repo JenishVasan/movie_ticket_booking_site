@@ -1,0 +1,259 @@
+<%- include('../partials/header.ejs' , {pageName : "CHECKOUT" , CustomCss : "booking.css" }) %>
+
+<style>
+    .checkout-container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: rgba(20, 20, 25, 0.95);
+        border-radius: 16px;
+        padding: 40px;
+        color: white;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+    }
+    .checkout-header {
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .checkout-header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .summary-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    .summary-item {
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 12px;
+    }
+    .summary-label {
+        font-size: 0.9rem;
+        color: #aaa;
+        margin-bottom: 8px;
+    }
+    .summary-value {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #fff;
+    }
+    .coupon-section {
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+    }
+    .coupon-input-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .coupon-input-group input {
+        flex: 1;
+        background: rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.2);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 1rem;
+        text-transform: uppercase;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+    .coupon-input-group input:focus {
+        border-color: #ff416c;
+    }
+    .btn-apply {
+        background: linear-gradient(45deg, #36d1dc, #5b86e5);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-apply:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(91, 134, 229, 0.4);
+    }
+    .coupon-message {
+        margin-top: 10px;
+        font-size: 0.9rem;
+    }
+    .message-success { color: #00b09b; }
+    .message-error { color: #ff416c; }
+
+    .price-breakdown {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        margin-bottom: 30px;
+    }
+    .price-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+        color: #ccc;
+    }
+    .price-row.discount-row {
+        color: #00b09b;
+        display: none;
+    }
+    .price-row.total-row {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 20px;
+        border-top: 1px dashed rgba(255,255,255,0.2);
+        padding-top: 20px;
+    }
+    .btn-checkout {
+        display: block;
+        width: 100%;
+        background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        color: white;
+        border: none;
+        padding: 18px;
+        border-radius: 12px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-checkout:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 65, 108, 0.5);
+    }
+</style>
+
+<div class="checkout-container">
+    <div class="checkout-header">
+        <h1>Order Summary</h1>
+        <p>Review your booking details and apply discounts.</p>
+    </div>
+
+    <div class="summary-grid">
+        <div class="summary-item">
+            <div class="summary-label">Movie</div>
+            <div class="summary-value"><%= movie.title %></div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-label">Theater</div>
+            <div class="summary-value"><%= show.screenId.theatreId.name %> - <%= show.screenId.name %></div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-label">Show Time</div>
+            <div class="summary-value">
+                <%= new Date(show.startTime).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }) %> at 
+                <%= new Date(show.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
+            </div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-label">Selected Seats</div>
+            <div class="summary-value"><%= selected_seats %></div>
+        </div>
+    </div>
+
+    <div class="coupon-section">
+        <div class="summary-label">Have a Coupon Code?</div>
+        <div class="coupon-input-group">
+            <input type="text" id="couponCode" placeholder="Enter code here" />
+            <button type="button" class="btn-apply" onclick="applyCoupon()">Apply</button>
+        </div>
+        <div id="couponMessage" class="coupon-message"></div>
+    </div>
+
+    <div class="price-breakdown">
+        <div class="price-row">
+            <span>Subtotal</span>
+            <span id="subtotalAmount">$<%= parseFloat(total_price).toFixed(2) %></span>
+        </div>
+        <div class="price-row discount-row" id="discountRow">
+            <span>Discount Applied</span>
+            <span id="discountAmount">-$0.00</span>
+        </div>
+        <div class="price-row total-row">
+            <span>Total to Pay</span>
+            <span id="finalTotalAmount">$<%= parseFloat(total_price).toFixed(2) %></span>
+        </div>
+    </div>
+
+    <form action="/api/booking" method="POST" id="finalBookingForm">
+        <input type="hidden" name="movie_id" value="<%= movie._id %>">
+        <input type="hidden" name="show_id" value="<%= show._id %>">
+        <input type="hidden" name="selected_seats" value="<%= selected_seats %>">
+        <input type="hidden" name="total_price" value="<%= total_price %>" id="formTotalPrice">
+        <input type="hidden" name="coupon_code" value="" id="formCouponCode">
+        
+        <button type="submit" class="btn-checkout">Complete Booking</button>
+    </form>
+</div>
+
+<script>
+    const subtotal = <%= total_price %>;
+    const movieId = "<%= movie._id %>";
+
+    async function applyCoupon() {
+        const code = document.getElementById('couponCode').value.trim();
+        const msgDiv = document.getElementById('couponMessage');
+        
+        if (!code) {
+            msgDiv.textContent = "Please enter a coupon code.";
+            msgDiv.className = "coupon-message message-error";
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/apply-coupon', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    coupon_code: code,
+                    total_price: subtotal,
+                    movie_id: movieId
+                })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                msgDiv.textContent = data.message;
+                msgDiv.className = "coupon-message message-success";
+                
+                // Show discount
+                document.getElementById('discountRow').style.display = 'flex';
+                document.getElementById('discountAmount').textContent = `-$${data.discountAmount.toFixed(2)}`;
+                
+                // Update final total
+                document.getElementById('finalTotalAmount').textContent = `$${data.newTotal.toFixed(2)}`;
+                
+                // Update hidden form inputs
+                document.getElementById('formCouponCode').value = code;
+                
+            } else {
+                msgDiv.textContent = data.error || "Failed to apply coupon";
+                msgDiv.className = "coupon-message message-error";
+                
+                // Reset discount
+                document.getElementById('discountRow').style.display = 'none';
+                document.getElementById('finalTotalAmount').textContent = `$${subtotal.toFixed(2)}`;
+                document.getElementById('formCouponCode').value = "";
+            }
+        } catch (err) {
+            msgDiv.textContent = "An error occurred. Please try again.";
+            msgDiv.className = "coupon-message message-error";
+        }
+    }
+</script>
+
+<%- include("../partials/footer.ejs" , {customJs : "" , hideFooter: true })%>

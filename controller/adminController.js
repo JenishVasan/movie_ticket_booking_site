@@ -2,6 +2,7 @@ const Movie = require("../model/moviewmodel");
 const Theatre = require("../model/theatorModel");
 const Screen = require("../model/screenModel");
 const Show = require("../model/showModel");
+const Coupon = require("../model/couponModel");
 
 const adminPage = async (req, res) => {
   try {
@@ -9,8 +10,9 @@ const adminPage = async (req, res) => {
     const theatres = await Theatre.find({});
     const screens = await Screen.find({}).populate("theatreId");
     const shows = await Show.find({}).populate("movieId").populate("screenId");
+    const coupons = await Coupon.find({});
 
-    res.render("pages/admin", { movies, theatres, screens, shows });
+    res.render("pages/admin", { movies, theatres, screens, shows, coupons });
   } catch (err) {
     console.log(err);
     res.status(500).send("Server Error");
@@ -147,6 +149,39 @@ const addShow = async (req, res) => {
   }
 };
 
+// --- COUPONS ---
+const addCoupon = async (req, res) => {
+  try {
+    const {
+      code,
+      discountType,
+      value,
+      minOrderValue,
+      maxDiscountValue,
+      validFrom,
+      validTo,
+      maxUsageLimit
+    } = req.body;
+
+    const newCoupon = new Coupon({
+      code: code.toUpperCase(),
+      discountType,
+      value: value || 0,
+      minOrderValue: minOrderValue || 0,
+      maxDiscountValue: maxDiscountValue || null,
+      validFrom: validFrom ? new Date(validFrom) : Date.now(),
+      validTo: new Date(validTo),
+      maxUsageLimit: maxUsageLimit || null,
+    });
+
+    await newCoupon.save();
+    res.redirect("/admin");
+  } catch (err) {
+    console.log("Error adding coupon:", err);
+    res.status(500).send("Error adding coupon");
+  }
+};
+
 // --- DELETE OPERATIONS ---
 
 const deleteMovie = async (req, res) => {
@@ -185,6 +220,14 @@ const deleteShow = async (req, res) => {
   }
 };
 
+const deleteCoupon = async (req, res) => {
+  try {
+    await Coupon.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 const getMovie = async (req, res) => {
   try {
@@ -215,6 +258,14 @@ const getShow = async (req, res) => {
     const data = await Show.findById(req.params.id)
       .populate("movieId")
       .populate("screenId");
+    res.json(data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+const getCoupon = async (req, res) => {
+  try {
+    const data = await Coupon.findById(req.params.id);
     res.json(data);
   } catch (err) {
     res.status(500).send(err);
@@ -306,6 +357,37 @@ const updateShow = async (req, res) => {
   }
 };
 
+const updateCoupon = async (req, res) => {
+  try {
+    const {
+      code,
+      discountType,
+      value,
+      minOrderValue,
+      maxDiscountValue,
+      validFrom,
+      validTo,
+      maxUsageLimit,
+      isActive
+    } = req.body;
+
+    await Coupon.findByIdAndUpdate(req.params.id, {
+      code: code.toUpperCase(),
+      discountType,
+      value: value || 0,
+      minOrderValue: minOrderValue || 0,
+      maxDiscountValue: maxDiscountValue || null,
+      validFrom: validFrom ? new Date(validFrom) : Date.now(),
+      validTo: new Date(validTo),
+      maxUsageLimit: maxUsageLimit || null,
+      isActive: isActive === 'on' ? true : false
+    });
+    res.redirect("/admin");
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
 module.exports = {
   adminPage,
   addMovie,
@@ -324,4 +406,8 @@ module.exports = {
   updateScreen,
   getShow,
   updateShow,
+  addCoupon,
+  deleteCoupon,
+  getCoupon,
+  updateCoupon,
 };

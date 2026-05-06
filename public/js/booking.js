@@ -101,11 +101,8 @@ function handleTimeChange() {
     currentShowId = showId;
     document.getElementById('hiddenShowInput').value = showId;
 
-    // Find selected show to get price/seat info later
     selectedShow = window.movieShows.find(s => s._id === showId);
-
-    // We'll update seat price based on show if needed
-    // For now, assuming fixed or handled in seat rendering
+ 
 }
 
 
@@ -224,8 +221,6 @@ function toggleSeat(seat) {
 // --- HANDLE FORM SUBMISSION (Client Side Check) ---
 const form = document.getElementById('mainBookingForm');
 form.addEventListener('submit', async (e) => {
-    // Standard form submission to /api/booking
-    // We only prevent default if validation fails
     if (selectedSeats.length === 0) {
         e.preventDefault();
         alert("Please select at least one seat.");

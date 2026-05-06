@@ -1,93 +1,97 @@
 <%- include('../partials/header.ejs' , {pageName : "CINEVERSE | ADMIN" , CustomCss : "admin.css" }) %>
 
-<div class="all-content">
-  
-  <div class="sidebar">
-    <div class="logo">CINEVERSE ADMIN</div>
-    <nav>
-      <div class="nav-link active">
-        <i class="fas fa-film"></i> Movies
-      </div>
-      <div class="nav-link">
-        <i class="fas fa-building"></i> Cinemas
-      </div>
-      <div class="nav-link">
-        <i class="fas fa-tv"></i> Screens
-      </div>
-      <div class="nav-link">
-        <i class="fas fa-calendar-alt"></i> Shows
-      </div>
-    </nav>
-  </div>
+  <div class="all-content">
 
-  <div class="main-content">
-    <!-- Movies Section -->
-    <div id="movies" class="section active">
-      <div class="header">
-        <h1 class="page-title">Manage Movies</h1>
-      </div>
+    <div class="sidebar">
+      <div class="logo"> </div>
+      <nav>
+        <div class="nav-link active">
+          <i class="fas fa-film"></i> Movies
+        </div>
+        <div class="nav-link">
+          <i class="fas fa-building"></i> Cinemas
+        </div>
+        <div class="nav-link">
+          <i class="fas fa-tv"></i> Screens
+        </div>
+        <div class="nav-link">
+          <i class="fas fa-calendar-alt"></i> Shows
+        </div>
+        <div class="nav-link">
+          <i class="fas fa-ticket-alt"></i> Coupons
+        </div>
+      </nav>
+    </div>
 
-      <div class="admin-card">
-        <h3 id="formTitle_movie">Add New Movie</h3>
-        <form id="movieForm" method="post" action="/addMovie">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Title</label>
-              <input type="text" name="title" id="m_title" required />
-            </div>
-            <div class="form-group">
-              <label>Genre</label>
-              <input name="genre" type="text" id="m_genre" placeholder="Action, Drama..." required />
-            </div>
-            <div class="form-group">
-              <label for="movieLanguage">Language</label>
-              <input type="text" name="movieLanguage" id="m_lang" placeholder="English, Hindi..." required />
-            </div>
-            <div class="form-group">
-              <label>Rating</label>
-              <input name="rating" type="number" step="0.1" id="m_rating" placeholder="0-10" required />
-            </div>
-            <div class="form-group">
-              <label>Poster URL</label>
-              <input type="url" name="poster" id="m_poster" placeholder="https://..." required />
-            </div>
-            <div class="form-group">
-              <label for="">Duration (Hours)</label>
-              <input type="number" name="durationHour" id="m_h" required />
-            </div>
-            <div class="form-group">
-              <label>Duration (Minutes)</label>
-              <input type="number" name="durationMinute" id="m_m" required />
-            </div>
-          </div>
-          <div style="margin-top:15px;">
-            <button type="submit" class="btn" id="btn_movie_submit">Add Movie</button>
-            <button type="button" class="btn" style="background-color:#666; display:none;" id="btn_movie_cancel">Cancel
-              Edit</button>
-          </div>
-        </form>
-      </div>
+    <div class="main-content">
+     
+      <div id="movies" class="section active">
+        <div class="header">
+          <h1 class="page-title">Manage Movies</h1>
+        </div>
 
-      <div class="admin-card">
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Genre</th>
-              <th>Duration</th>
-              <th>Rating</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="movieTable">
-            <% if (typeof movies !=='undefined' && movies.length> 0) { %>
-              <% movies.forEach(movie=> { %>
-                <tr>
-                  <td>
-                    <%= movie.title %>
-                  </td>
-                  <td>
-                    <%= movie.genre.join(', ') %></td>
+        <div class="admin-card">
+          <h3 id="formTitle_movie">Add New Movie</h3>
+          <form id="movieForm" method="post" action="/addMovie">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" id="m_title" required />
+              </div>
+              <div class="form-group">
+                <label>Genre</label>
+                <input name="genre" type="text" id="m_genre" placeholder="Action, Drama..." required />
+              </div>
+              <div class="form-group">
+                <label for="movieLanguage">Language</label>
+                <input type="text" name="movieLanguage" id="m_lang" placeholder="English, Hindi..." required />
+              </div>
+              <div class="form-group">
+                <label>Rating</label>
+                <input name="rating" type="number" step="0.1" id="m_rating" placeholder="0-10" required />
+              </div>
+              <div class="form-group">
+                <label>Poster URL</label>
+                <input type="url" name="poster" id="m_poster" placeholder="https://..." required />
+              </div>
+              <div class="form-group">
+                <label for="">Duration (Hours)</label>
+                <input type="number" name="durationHour" id="m_h" required />
+              </div>
+              <div class="form-group">
+                <label>Duration (Minutes)</label>
+                <input type="number" name="durationMinute" id="m_m" required />
+              </div>
+            </div>
+            <div style="margin-top:15px;">
+              <button type="submit" class="btn" id="btn_movie_submit">Add Movie</button>
+              <button type="button" class="btn" style="background-color:#666; display:none;"
+                id="btn_movie_cancel">Cancel
+                Edit</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="admin-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Duration</th>
+                <th>Rating</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="movieTable">
+              <% if (typeof movies !=='undefined' && movies.length> 0) { %>
+                <% movies.forEach(movie=> { %>
+                  <tr>
+                    <td>
+                      <%= movie.title %>
+                    </td>
+                    <td>
+                      <%= movie.genre.join(', ') %></td>
                         <td><%= movie.durationH %>h <%= movie.durationM %>m</td>
                         <td><%= movie.rating %></td>
                         <td>
@@ -139,236 +143,341 @@
         </thead>
         <tbody id="cinemaTable">
             <% if (typeof theatres !== ' undefined' && theatres.length> 0) { %>
-                      <% theatres.forEach(theatre=> { %>
-                <tr>
-                  <td>
-                    <%= theatre.name %>
-                  </td>
-                  <td>
-                    <%= theatre.city %>
-                  </td>
-                  <td>
-                    <%= theatre.address %>
-                  </td>
-                  <td>
-                    <button class="btn btn-edit" data-id="<%= theatre._id %>" data-type="Cinema"
-                      style="background-color: #4CAF50;">Edit</button>
-                    <button class="btn btn-danger" data-id="<%= theatre._id %>" data-type="Cinema"
-                      style="background-color: #ff4444;">Delete</button>
-                  </td>
-                </tr>
+                        <% theatres.forEach(theatre=> { %>
+                  <tr>
+                    <td>
+                      <%= theatre.name %>
+                    </td>
+                    <td>
+                      <%= theatre.city %>
+                    </td>
+                    <td>
+                      <%= theatre.address %>
+                    </td>
+                    <td>
+                      <button class="btn btn-edit" data-id="<%= theatre._id %>" data-type="Cinema"
+                        style="background-color: #4CAF50;">Edit</button>
+                      <button class="btn btn-danger" data-id="<%= theatre._id %>" data-type="Cinema"
+                        style="background-color: #ff4444;">Delete</button>
+                    </td>
+                  </tr>
+                  <% }) %>
+                    <% } else { %>
+                      <tr>
+                        <td colspan="4">No cinemas found.</td>
+                      </tr>
+                      <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Screens Section -->
+      <div id="screens" class="section">
+        <div class="header">
+          <h1 class="page-title">Manage Screens</h1>
+        </div>
+        <div class="admin-card">
+          <h3 id="formTitle_screen">Add New Screen</h3>
+          <form id="screenForm" method="post" action="/addScreen">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Screen Name</label>
+                <input type="text" name="name" id="s_name" placeholder="Audi 1" required />
+              </div>
+              <div class="form-group">
+                <label for="rows">Rows</label>
+                <input type="number" name="rows" id="s_rows" value="6" required />
+              </div>
+              <div class="form-group">
+                <label>Columns (Seats per row)</label>
+                <input type="number" name="columns" id="s_cols" value="8" required />
+              </div>
+              <div class="form-group">
+                <label>Cinema (Link)</label>
+                <select name="cinemaId" id="s_cinema_select" required>
+                  <% if (typeof theatres !=='undefined' && theatres.length> 0) { %>
+                    <% theatres.forEach(theatre=> { %>
+                      <option value="<%= theatre._id %>">
+                        <%= theatre.name %> - <%= theatre.city %>
+                      </option>
+                      <% }) %>
+                        <% } else { %>
+                          <option value="">No cinemas available</option>
+                          <% } %>
+                </select>
+              </div>
+            </div>
+            <div class="json-preview" id="seatJsonPreview">
+              Seat layout will be generated automatically based on Rows & Cols.
+            </div>
+            <div style="margin-top:15px;">
+              <button type="submit" class="btn" id="btn_screen_submit">Generate Layout & Add Screen</button>
+              <button type="button" class="btn" style="background-color:#666; display:none;"
+                id="btn_screen_cancel">Cancel
+                Edit</button>
+            </div>
+          </form>
+        </div>
+        <div class="admin-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Screen</th>
+                <th>Cinema</th>
+                <th>Total Seats</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="screenTable">
+              <% if (typeof screens !=='undefined' && screens.length> 0) { %>
+                <% screens.forEach(screen=> { %>
+                  <tr>
+                    <td>
+                      <%= screen.name %>
+                    </td>
+                    <td>
+                      <%= screen.theatreId ? screen.theatreId.name : 'N/A' %>
+                    </td>
+                    <td>
+                      <%= screen.totalSeats %>
+                    </td>
+                    <td>
+                      <button class="btn btn-edit" data-id="<%= screen._id %>" data-type="Screen"
+                        style="background-color: #4CAF50;">Edit</button>
+                      <button class="btn btn-danger" data-id="<%= screen._id %>" data-type="Screen"
+                        style="background-color: #ff4444;">Delete</button>
+                    </td>
+                  </tr>
+                  <% }) %>
+                    <% } else { %>
+                      <tr>
+                        <td colspan="4">No screens found.</td>
+                      </tr>
+                      <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Shows Section -->
+      <div id="shows" class="section">
+        <div class="header">
+          <h1 class="page-title">Manage Shows</h1>
+        </div>
+        <div class="admin-card">
+          <h3 id="formTitle_show">Add New Show</h3>
+          <form id="showForm" method="post" action="/addShow">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Select Movie</label>
+                <select name="movieId" id="sh_movie" required>
+                  <% if (typeof movies !=='undefined' && movies.length> 0) { %>
+                    <% movies.forEach(movie=> { %>
+                      <option value="<%= movie._id %>">
+                        <%= movie.title %>
+                      </option>
+                      <% }) %>
+                        <% } else { %>
+                          <option value="">No movies available</option>
+                          <% } %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Screen</label>
+                <select name="screenId" id="sh_screen" required>
+                  <% if (typeof screens !=='undefined' && screens.length> 0) { %>
+                    <% screens.forEach(screen=> { %>
+                      <option value="<%= screen._id %>">
+                        <%= screen.name %> (<%= screen.theatreId ? screen.theatreId.name : 'Unknown' %>)
+                      </option>
+                      <% }) %>
+                        <% } else { %>
+                          <option value="">No screens available</option>
+                          <% } %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Start Time</label>
+                <input type="datetime-local" name="startTime" id="sh_start" required />
+              </div>
+              <div class="form-group">
+                <label>End Time</label>
+                <input type="datetime-local" name="endTime" id="sh_end" required />
+              </div>
+              <div class="form-group">
+                <label>Regular Price</label>
+                <input type="number" name="priceRegular" id="p_reg" required />
+              </div>
+              <div class="form-group">
+                <label>Premium Price</label>
+                <input type="number" name="pricePremium" id="p_prem" required />
+              </div>
+              <div class="form-group">
+                <label>Recliner Price</label>
+                <input type="number" name="priceRecliner" id="p_rec" required />
+              </div>
+            </div>
+            <div style="margin-top:15px;">
+              <button type="submit" class="btn" id="btn_show_submit">Create Show</button>
+              <button type="button" class="btn" style="background-color:#666; display:none;" id="btn_show_cancel">Cancel
+                Edit</button>
+            </div>
+          </form>
+        </div>
+        <div class="admin-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Movie</th>
+                <th>Screen</th>
+                <th>Time</th>
+                <th>Prices (R/P/Rec)</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="showTable">
+              <% if (typeof shows !=='undefined' && shows.length> 0) { %>
+                <% shows.forEach(show=> { %>
+                  <tr>
+                    <td>
+                      <%= show.movieId ? show.movieId.title : 'N/A' %>
+                    </td>
+                    <td>
+                      <%= show.screenId ? show.screenId.name : 'N/A' %>
+                    </td>
+                    <td>
+                      <%= new Date(show.startTime).toLocaleString('en-US', { month: 'short' , day: 'numeric' ,
+                        hour: '2-digit' , minute: '2-digit' }) %>
+                        -
+                        <%= new Date(show.endTime).toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %>
+                    </td>
+                    <td>
+                      <%= show.price.REGULAR %> / <%= show.price.PREMIUM %> / <%= show.price.RECLINER %>
+                    </td>
+                    <td>
+                      <button class="btn btn-edit" data-id="<%= show._id %>" data-type="Show"
+                        style="background-color: #4CAF50;">Edit</button>
+                      <button class="btn btn-danger" data-id="<%= show._id %>" data-type="Show"
+                        style="background-color: #ff4444;">Delete</button>
+                    </td>
+                  </tr>
+                  <% }) %>
+                    <% } else { %>
+                      <tr>
+                        <td colspan="5">No shows found.</td>
+                      </tr>
+                      <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Coupons Section -->
+      <div id="coupons" class="section">
+        <div class="header">
+          <h1 class="page-title">Manage Coupons</h1>
+        </div>
+        <div class="admin-card">
+          <h3 id="formTitle_coupon">Add New Coupon</h3>
+          <form id="couponForm" method="post" action="/addCoupon">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Coupon Code</label>
+                <input type="text" name="code" id="cp_code" placeholder="e.g. SUMMER50" style="text-transform: uppercase;" required />
+              </div>
+              <div class="form-group">
+                <label>Discount Type</label>
+                <select name="discountType" id="cp_type" required>
+                  <option value="percentage">Percentage</option>
+                  <option value="fixed">Fixed Amount</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Value (amount or %)</label>
+                <input type="number" name="value" id="cp_val" step="0.01" required />
+              </div>
+              <div class="form-group">
+                <label>Min Order Value</label>
+                <input type="number" name="minOrderValue" id="cp_min" step="0.01" value="0" />
+              </div>
+              <div class="form-group">
+                <label>Max Discount (for %)</label>
+                <input type="number" name="maxDiscountValue" id="cp_max" step="0.01" />
+              </div>
+              <div class="form-group">
+                <label>Valid From</label>
+                <input type="datetime-local" name="validFrom" id="cp_from" />
+              </div>
+              <div class="form-group">
+                <label>Valid To</label>
+                <input type="datetime-local" name="validTo" id="cp_to" required />
+              </div>
+              <div class="form-group">
+                <label>Max Usage Limit</label>
+                <input type="number" name="maxUsageLimit" id="cp_limit" placeholder="Leave empty for unlimited" />
+              </div>
+              <div class="form-group" style="display:flex; align-items:center; gap: 10px;">
+                <label style="margin:0;">Active</label>
+                <input type="checkbox" name="isActive" id="cp_active" checked style="width:20px; height:20px;" />
+              </div>
+            </div>
+            <div style="margin-top:15px;">
+              <button type="submit" class="btn" id="btn_coupon_submit">Create Coupon</button>
+              <button type="button" class="btn" style="background-color:#666; display:none;" id="btn_coupon_cancel">Cancel Edit</button>
+            </div>
+          </form>
+        </div>
+        <div class="admin-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Type</th>
+                <th>Value</th>
+                <th>Usage</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="couponTable">
+              <% if (typeof coupons !=='undefined' && coupons.length> 0) { %>
+                <% coupons.forEach(coupon=> { %>
+                  <tr>
+                    <td style="text-transform: uppercase; font-weight:bold;">
+                      <%= coupon.code %>
+                    </td>
+                    <td style="text-transform: capitalize;">
+                      <%= coupon.discountType %>
+                    </td>
+                    <td>
+                      <%= coupon.discountType === 'percentage' ? coupon.value + '%' : '$' + coupon.value %>
+                    </td>
+                    <td>
+                      <%= coupon.usageCount %> / <%= coupon.maxUsageLimit || '∞' %>
+                    </td>
+                    <td>
+                      <span style="color: <%= coupon.isActive ? '#4CAF50' : '#ff4444' %>;">
+                        <%= coupon.isActive ? 'Active' : 'Inactive' %>
+                      </span>
+                    </td>
+                    <td>
+                      <button class="btn btn-edit" data-id="<%= coupon._id %>" data-type="Coupon" style="background-color: #4CAF50;">Edit</button>
+                      <button class="btn btn-danger" data-id="<%= coupon._id %>" data-type="Coupon" style="background-color: #ff4444;">Delete</button>
+                    </td>
+                  </tr>
                 <% }) %>
-                  <% } else { %>
-                    <tr>
-                      <td colspan="4">No cinemas found.</td>
-                    </tr>
-                    <% } %>
-          </tbody>
-        </table>
+              <% } else { %>
+                <tr>
+                  <td colspan="6">No coupons found.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
-    <!-- Screens Section -->
-    <div id="screens" class="section">
-      <div class="header">
-        <h1 class="page-title">Manage Screens</h1>
-      </div>
-      <div class="admin-card">
-        <h3 id="formTitle_screen">Add New Screen</h3>
-        <form id="screenForm" method="post" action="/addScreen">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Screen Name</label>
-              <input type="text" name="name" id="s_name" placeholder="Audi 1" required />
-            </div>
-            <div class="form-group">
-              <label for="rows">Rows</label>
-              <input type="number" name="rows" id="s_rows" value="6" required />
-            </div>
-            <div class="form-group">
-              <label>Columns (Seats per row)</label>
-              <input type="number" name="columns" id="s_cols" value="8" required />
-            </div>
-            <div class="form-group">
-              <label>Cinema (Link)</label>
-              <select name="cinemaId" id="s_cinema_select" required>
-                <% if (typeof theatres !=='undefined' && theatres.length> 0) { %>
-                  <% theatres.forEach(theatre=> { %>
-                    <option value="<%= theatre._id %>">
-                      <%= theatre.name %> - <%= theatre.city %>
-                    </option>
-                    <% }) %>
-                      <% } else { %>
-                        <option value="">No cinemas available</option>
-                        <% } %>
-              </select>
-            </div>
-          </div>
-          <div class="json-preview" id="seatJsonPreview">
-            Seat layout will be generated automatically based on Rows & Cols.
-          </div>
-          <div style="margin-top:15px;">
-            <button type="submit" class="btn" id="btn_screen_submit">Generate Layout & Add Screen</button>
-            <button type="button" class="btn" style="background-color:#666; display:none;" id="btn_screen_cancel">Cancel
-              Edit</button>
-          </div>
-        </form>
-      </div>
-      <div class="admin-card">
-        <table>
-          <thead>
-            <tr>
-              <th>Screen</th>
-              <th>Cinema</th>
-              <th>Total Seats</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="screenTable">
-            <% if (typeof screens !=='undefined' && screens.length> 0) { %>
-              <% screens.forEach(screen=> { %>
-                <tr>
-                  <td>
-                    <%= screen.name %>
-                  </td>
-                  <td>
-                    <%= screen.theatreId ? screen.theatreId.name : 'N/A' %>
-                  </td>
-                  <td>
-                    <%= screen.totalSeats %>
-                  </td>
-                  <td>
-                    <button class="btn btn-edit" data-id="<%= screen._id %>" data-type="Screen"
-                      style="background-color: #4CAF50;">Edit</button>
-                    <button class="btn btn-danger" data-id="<%= screen._id %>" data-type="Screen"
-                      style="background-color: #ff4444;">Delete</button>
-                  </td>
-                </tr>
-                <% }) %>
-                  <% } else { %>
-                    <tr>
-                      <td colspan="4">No screens found.</td>
-                    </tr>
-                    <% } %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Shows Section -->
-    <div id="shows" class="section">
-      <div class="header">
-        <h1 class="page-title">Manage Shows</h1>
-      </div>
-      <div class="admin-card">
-        <h3 id="formTitle_show">Add New Show</h3>
-        <form id="showForm" method="post" action="/addShow">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Select Movie</label>
-              <select name="movieId" id="sh_movie" required>
-                <% if (typeof movies !=='undefined' && movies.length> 0) { %>
-                  <% movies.forEach(movie=> { %>
-                    <option value="<%= movie._id %>">
-                      <%= movie.title %>
-                    </option>
-                    <% }) %>
-                      <% } else { %>
-                        <option value="">No movies available</option>
-                        <% } %>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Select Screen</label>
-              <select name="screenId" id="sh_screen" required>
-                <% if (typeof screens !=='undefined' && screens.length> 0) { %>
-                  <% screens.forEach(screen=> { %>
-                    <option value="<%= screen._id %>">
-                      <%= screen.name %> (<%= screen.theatreId ? screen.theatreId.name : 'Unknown' %>)
-                    </option>
-                    <% }) %>
-                      <% } else { %>
-                        <option value="">No screens available</option>
-                        <% } %>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Start Time</label>
-              <input type="datetime-local" name="startTime" id="sh_start" required />
-            </div>
-            <div class="form-group">
-              <label>End Time</label>
-              <input type="datetime-local" name="endTime" id="sh_end" required />
-            </div>
-            <div class="form-group">
-              <label>Regular Price</label>
-              <input type="number" name="priceRegular" id="p_reg" required />
-            </div>
-            <div class="form-group">
-              <label>Premium Price</label>
-              <input type="number" name="pricePremium" id="p_prem" required />
-            </div>
-            <div class="form-group">
-              <label>Recliner Price</label>
-              <input type="number" name="priceRecliner" id="p_rec" required />
-            </div>
-          </div>
-          <div style="margin-top:15px;">
-            <button type="submit" class="btn" id="btn_show_submit">Create Show</button>
-            <button type="button" class="btn" style="background-color:#666; display:none;" id="btn_show_cancel">Cancel
-              Edit</button>
-          </div>
-        </form>
-      </div>
-      <div class="admin-card">
-        <table>
-          <thead>
-            <tr>
-              <th>Movie</th>
-              <th>Screen</th>
-              <th>Time</th>
-              <th>Prices (R/P/Rec)</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="showTable">
-            <% if (typeof shows !=='undefined' && shows.length> 0) { %>
-              <% shows.forEach(show=> { %>
-                <tr>
-                  <td>
-                    <%= show.movieId ? show.movieId.title : 'N/A' %>
-                  </td>
-                  <td>
-                    <%= show.screenId ? show.screenId.name : 'N/A' %>
-                  </td>
-                  <td>
-                    <%= new Date(show.startTime).toLocaleString('en-US', { month: 'short' , day: 'numeric' ,
-                      hour: '2-digit' , minute: '2-digit' }) %>
-                      -
-                      <%= new Date(show.endTime).toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %>
-                  </td>
-                  <td>
-                    <%= show.price.REGULAR %> / <%= show.price.PREMIUM %> / <%= show.price.RECLINER %>
-                  </td>
-                  <td>
-                    <button class="btn btn-edit" data-id="<%= show._id %>" data-type="Show"
-                      style="background-color: #4CAF50;">Edit</button>
-                    <button class="btn btn-danger" data-id="<%= show._id %>" data-type="Show"
-                      style="background-color: #ff4444;">Delete</button>
-                  </td>
-                </tr>
-                <% }) %>
-                  <% } else { %>
-                    <tr>
-                      <td colspan="5">No shows found.</td>
-                    </tr>
-                    <% } %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div> 
-
-</div>
+  </div>
 
   <%- include("../partials/footer.ejs" , {customJs : "admin.js" })%>

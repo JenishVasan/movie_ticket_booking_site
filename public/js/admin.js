@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (type === 'Cinema') populateCinemaForm(data);
         if (type === 'Screen') populateScreenForm(data);
         if (type === 'Show') populateShowForm(data);
+        if (type === 'Coupon') populateCouponForm(data);
 
       } catch (err) { console.error("Error fetching data for edit", err); }
     }
@@ -194,5 +195,50 @@ document.addEventListener("DOMContentLoaded", () => {
     formTitleShow.textContent = "Add New Show";
     btnShowCancel.style.display = 'none';
   });
+
+  // Coupon
+  const couponForm = document.getElementById('couponForm');
+  const btnCouponSubmit = document.getElementById('btn_coupon_submit');
+  const btnCouponCancel = document.getElementById('btn_coupon_cancel');
+  const formTitleCoupon = document.getElementById('formTitle_coupon');
+
+  function populateCouponForm(data) {
+    document.getElementById('cp_code').value = data.code;
+    document.getElementById('cp_type').value = data.discountType;
+    document.getElementById('cp_val').value = data.value;
+    document.getElementById('cp_min').value = data.minOrderValue;
+    document.getElementById('cp_max').value = data.maxDiscountValue || '';
+    
+    if (data.validFrom) {
+      const from = new Date(data.validFrom);
+      from.setMinutes(from.getMinutes() - from.getTimezoneOffset());
+      document.getElementById('cp_from').value = from.toISOString().slice(0, 16);
+    }
+    
+    if (data.validTo) {
+      const to = new Date(data.validTo);
+      to.setMinutes(to.getMinutes() - to.getTimezoneOffset());
+      document.getElementById('cp_to').value = to.toISOString().slice(0, 16);
+    }
+    
+    document.getElementById('cp_limit').value = data.maxUsageLimit || '';
+    document.getElementById('cp_active').checked = data.isActive;
+
+    couponForm.action = `/updateCoupon/${data._id}`;
+    btnCouponSubmit.textContent = "Update Coupon";
+    formTitleCoupon.textContent = "Edit Coupon";
+    btnCouponCancel.style.display = 'inline-block';
+    couponForm.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  if (btnCouponCancel) {
+    btnCouponCancel.addEventListener('click', () => {
+      couponForm.reset();
+      couponForm.action = "/addCoupon";
+      btnCouponSubmit.textContent = "Create Coupon";
+      formTitleCoupon.textContent = "Add New Coupon";
+      btnCouponCancel.style.display = 'none';
+    });
+  }
 
 });

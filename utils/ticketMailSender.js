@@ -1,13 +1,13 @@
-const mailSender = require("./mailSender") 
+const mailSender = require("./mailSender")
 
-const ticketMail = async  ( ticketObj)=>{
-   const seats = ticketObj.seatNo ;
+const ticketMail = async (ticketObj) => {
+    const seats = ticketObj.seatNo;
     var message = {
-            from: "hjenis451@gmail.com",
-            to:  ticketObj.userEmail,
-            subject: "Welcome to Cineverse! 🎬",
-            // text: "This is the plaintext version of the email.",
-            html:`<!DOCTYPE html>
+        from: "hjenis451@gmail.com",
+        to: ticketObj.userEmail,
+        subject: "Welcome to Cineverse! 🎬",
+        // text: "This is the plaintext version of the email.",
+        html: `<!DOCTYPE html>
                     <html>
                     <head>
                     <meta charset="UTF-8" />
@@ -33,7 +33,7 @@ const ticketMail = async  ( ticketObj)=>{
                             <tr>
                                 <td style="padding:20px; color:#333333;">
 
-                                <p style="margin:0 0 10px;">Hi <strong>${ticketObj.username}</strong>,</p>
+                                <p style="margin:0 0 10px;">Hi <strong>${ticketObj.userName}</strong>,</p>
                                 <p style="margin:0 0 20px;">
                                     Your movie ticket has been successfully booked.  
                                     Please find the details below:
@@ -59,13 +59,13 @@ const ticketMail = async  ( ticketObj)=>{
                                     <tr>
                                     <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Time</strong></td>
                                     <td style="padding:8px; border-bottom:1px solid #ddd;">
-                                        <%=ticketObj.startTime%> - <%=ticketObj.endTime%>
+                                        ${ticketObj.startTime} - ${ticketObj.endTime}
                                     </td>
                                     </tr>
 
                                     <tr>
                                     <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Seats</strong></td>
-                                    <td style="padding:8px; border-bottom:1px solid #ddd;">${seats}/td>
+                                    <td style="padding:8px; border-bottom:1px solid #ddd;">${seats}</td>
                                     </tr>
 
                                     <tr>
@@ -100,14 +100,14 @@ const ticketMail = async  ( ticketObj)=>{
                     </body>
                     </html>
 `,
-                    };
+    };
 
-        console.log('utils :sending ticket to user via mail ')
-        await mailSender.sendMail(message)
-        console.log("email send success")
+    console.log('utils :sending ticket to user via mail ')
+    await mailSender.sendMail(message)
+    console.log("email send success")
 }
 
-module.exports = ticketMail ;
+module.exports = ticketMail;
 
 
 
