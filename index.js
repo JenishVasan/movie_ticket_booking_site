@@ -5,7 +5,7 @@ dotenv.config()
 const router = require('./routers/router')
 const connectDb = require('./db/db')
 const cookieParser = require("cookie-parser")
-const port = 3000
+const port = process.env.PORT || 3000
 const app= express()
 app.set("view engine", "ejs")
 

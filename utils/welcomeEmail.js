@@ -45,7 +45,7 @@ const welcomeMail = async (userEmail, username) => {
                                 </p>
 
                                 <div style="text-align: center;">
-                                    <a href="http://localhost:3000" class="btn">Book Your First Ticket</a>
+                                    <a href="http://localhost:${process.env.PORT || 3000}" class="btn">Book Your First Ticket</a>
                                 </div>
 
                                 <p style="margin-top: 30px;">See you at the movies!</p>

@@ -1,5 +1,5 @@
 
-const { login, register, userRegister, userLogin , logOut} = require('../controller/authController')
+const { login, register, userRegister, userLogin, logOut } = require('../controller/authController')
 const { home, booking, getShows, storeBooking, bookingSuccess, checkoutPage, applyCoupon, profilePage, cancelTicket } = require('../controller/userController')
 const {
     adminPage, addMovie, addCinema, addScreen, addShow,
@@ -15,6 +15,7 @@ const {
 const authMiddleware = require('../middleware/authMiddleware')
 const checkLogin = require('../middleware/loginCheck')
 const express = require('express')
+const adminAuth = require("../middleware/adminAuth")
 const router = express.Router()
 
 router.get('/', authMiddleware, home)
@@ -24,31 +25,32 @@ router.post('/userLogin', userLogin)
 router.get('/register', checkLogin, register)
 router.post('/userRegister', userRegister)
 // logout 
-router.get("/logout" , authMiddleware , logOut)
+router.get("/logout", authMiddleware, logOut)
+
 router.get('/booking/:movieId', authMiddleware, booking)
 router.post('/checkout', authMiddleware, checkoutPage)
 router.post('/api/apply-coupon', authMiddleware, applyCoupon)
 router.post('/api/booking', authMiddleware, storeBooking)
 router.get('/booking-success', authMiddleware, bookingSuccess)
 
+
 router.get('/profile', authMiddleware, profilePage)
 router.post('/cancel-ticket/:id', authMiddleware, cancelTicket)
 
 router.get('/getShows/:movieId', getShows)
 
- 
-router.get('/admin', adminPage)
-router.post('/addMovie', addMovie)
-router.post('/addCinema', addCinema)
-router.post('/addScreen', addScreen)
-router.post('/addShow', addShow)
- 
+
+router.get('/admin', adminAuth, adminPage)
+router.post('/addMovie', adminAuth, addMovie)
+router.post('/addCinema', adminAuth, addCinema)
+router.post('/addScreen', adminAuth, addScreen)
+router.post('/addShow', adminAuth, addShow)
+
 router.delete('/deleteMovie/:id', deleteMovie)
 router.delete('/deleteCinema/:id', deleteCinema)
 router.delete('/deleteScreen/:id', deleteScreen)
 router.delete('/deleteShow/:id', deleteShow)
 
- 
 router.get('/getMovie/:id', getMovie)
 router.post('/updateMovie/:id', updateMovie)
 
